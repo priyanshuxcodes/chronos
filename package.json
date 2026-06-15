@@ -9,9 +9,13 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@corsair-dev/cli": "^0.1.19",
+    "@corsair-dev/gmail": "^0.1.4",
     "@prisma/client": "^6.19.3",
+    "corsair": "^0.1.76",
     "next": "16.2.9",
     "next-auth": "^4.24.14",
+    "pg": "^8.21.0",
     "prisma": "^6.19.3",
     "react": "19.2.4",
     "react-dom": "19.2.4"
@@ -19,6 +23,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
