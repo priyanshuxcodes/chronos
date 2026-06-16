@@ -59,7 +59,7 @@ export default function LandingPage() {
       {/* --- HERO SECTION --- */}
       <section className="pt-32 pb-24 md:pt-40 md:pb-36 text-center px-4 relative overflow-hidden">
         {/* Abstract Glowing Background Layers */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-blue-600/20 to-indigo-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-150 h-150 bg-linear-to-tr from-blue-600/20 to-indigo-600/10 rounded-full blur-[140px] pointer-events-none"></div>
 
         <div className="max-w-4xl mx-auto relative z-10">
           {/* Badge indicator */}
@@ -86,8 +86,8 @@ export default function LandingPage() {
           </div>
 
           {/* Tablet Showcase Container */}
-          <div className="scroll-animate opacity-0 translate-y-8 transition-all duration-1000 ease-out max-w-4xl mx-auto rounded-2xl bg-gradient-to-b from-white/10 to-transparent p-2 border border-white/10 shadow-2xl shadow-blue-950/50">
-            <div className="bg-[#070c18] aspect-[16/10] rounded-xl border border-white/5 overflow-hidden p-4 relative flex flex-col">
+          <div className="scroll-animate opacity-0 translate-y-8 transition-all duration-1000 ease-out max-w-4xl mx-auto rounded-2xl bg-linear-to-b from-white/10 to-transparent p-2 border border-white/10 shadow-2xl shadow-blue-950/50">
+            <div className="bg-[#070c18] aspect-16/10 rounded-xl border border-white/5 overflow-hidden p-4 relative flex flex-col">
               
               {/* Tablet Header Mock */}
               <div className="flex items-center justify-between border-b border-white/5 pb-3 mb-4">
@@ -101,8 +101,8 @@ export default function LandingPage() {
               {/* Tablet Body Layout */}
               <div className="flex-1 grid grid-cols-[160px_1fr] gap-4 text-left">
                 {/* Profile Card Mockup */}
-                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3 flex flex-col items-center justify-center text-center">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-orange-400 to-amber-500 mb-2 border border-white/10 shadow-md"></div>
+                <div className="bg-white/2 border border-white/5 rounded-xl p-3 flex flex-col items-center justify-center text-center">
+                  <div className="w-12 h-12 rounded-full bg-linear-to-tr from-orange-400 to-amber-500 mb-2 border border-white/10 shadow-md"></div>
                   <p className="text-xs font-bold text-white">GIRGIS MAS.</p>
                   <p className="text-[10px] text-gray-500">Director of Operations</p>
                 </div>
@@ -115,12 +115,12 @@ export default function LandingPage() {
                     { w: "w-[75%]", color: "bg-indigo-500/80" },
                     { w: "w-[45%]", color: "bg-purple-500/80" }
                   ].map((item, idx) => (
-                    <div key={idx} className="h-6 bg-white/[0.02] border border-white/5 rounded-md flex items-center px-2">
+                    <div key={idx} className="h-6 bg-white/2 border border-white/5 rounded-md flex items-center px-2">
                       <div className={`h-2.5 rounded-full ${item.color} ${item.w} shadow-sm shadow-blue-500/20`}></div>
                     </div>
                   ))}
                   {/* Area Chart Wave Line */}
-                  <div className="h-12 w-full bg-gradient-to-t from-blue-500/10 to-transparent rounded-lg border-t border-blue-500/30 mt-2 relative overflow-hidden">
+                  <div className="h-12 w-full bg-linear-to-t from-blue-500/10 to-transparent rounded-lg border-t border-blue-500/30 mt-2 relative overflow-hidden">
                     <svg className="absolute bottom-0 w-full h-8 text-blue-500/40" viewBox="0 0 100 100" preserveAspectRatio="none">
                       <path d="M0,50 Q25,20 50,70 T100,30 L100,100 L0,100 Z" fill="currentColor"></path>
                     </svg>
@@ -170,7 +170,7 @@ export default function LandingPage() {
             ].map((feature, idx) => (
               <div 
                 key={idx} 
-                className="scroll-animate opacity-0 translate-y-8 transition-all duration-700 ease-out bg-white/[0.02] border border-white/5 p-6 rounded-2xl shadow-inner hover:bg-white/[0.04] hover:border-white/10 transition-all group"
+                className="scroll-animate opacity-0 translate-y-8 transition-all duration-700 ease-out bg-white/2 border border-white/5 p-6 rounded-2xl shadow-inner hover:bg-white/4 hover:border-white/10 transition-all group"
                 style={{ transitionDelay: `${idx * 150}ms` }}
               >
                 <div className={`w-10 h-10 ${feature.bg} ${feature.text} rounded-lg flex items-center justify-center mb-6 font-bold group-hover:scale-105 transition-transform`}>
@@ -220,7 +220,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             
             {/* Card 1: Personal */}
-            <div className="scroll-animate opacity-0 translate-y-8 transition-all duration-700 ease-out bg-white/[0.01] border border-white/5 rounded-2xl p-8 flex flex-col justify-between relative backdrop-blur-md">
+            <div className="scroll-animate opacity-0 translate-y-8 transition-all duration-700 ease-out bg-white/1 border border-white/5 rounded-2xl p-8 flex flex-col justify-between relative backdrop-blur-md">
               <div>
                 <p className="text-xs font-bold text-blue-400 uppercase tracking-wide mb-2">Personal</p>
                 <div className="flex items-baseline gap-1 text-white mb-4">
@@ -271,7 +271,7 @@ export default function LandingPage() {
             </div>
 
             {/* Card 3: Beyond Limits */}
-            <div className="scroll-animate opacity-0 translate-y-8 transition-all duration-700 ease-out bg-white/[0.01] border border-white/5 rounded-2xl p-8 flex flex-col justify-between relative backdrop-blur-md">
+            <div className="scroll-animate opacity-0 translate-y-8 transition-all duration-700 ease-out bg-white/1 border border-white/5 rounded-2xl p-8 flex flex-col justify-between relative backdrop-blur-md">
               <div>
                 <p className="text-xs font-bold text-purple-400 uppercase tracking-wide mb-2">Beyond Limits</p>
                 <div className="flex items-baseline gap-1 text-white mb-4">
