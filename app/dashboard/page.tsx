@@ -12,6 +12,12 @@ export default function DashboardPage() {
   const registeredEmail = "user@example.com";
   const avatarInitial = registeredEmail.split("@")[0].charAt(0).toUpperCase();
 
+  const [prompt, setPrompt] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState<
+    { role: "user" | "assistant"; text: string }[]
+  >([]);
+
   useEffect(() => {
     async function loadEmails() {
       const res = await fetch("/api/emails");
@@ -34,6 +40,49 @@ export default function DashboardPage() {
         setEvents(data.items || []);
       });
   }, []);
+
+  const handleSend = async () => {
+    if (!prompt.trim()) return;
+
+    setLoading(true);
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "user",
+        text: prompt,
+      },
+    ]);
+
+    const res = await fetch("/api/agent", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        message: prompt,
+      }),
+    });
+
+    const data = await res.json();
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "assistant",
+        text: data.message,
+      },
+    ]);
+
+    setPrompt("");
+
+    setLoading(false);
+
+    // Later we'll refresh calendar here
+    // fetchEvents();
+  };
 
   return (
     <div className="h-screen flex flex-col bg-[#030712] text-gray-100 font-sans antialiased overflow-hidden">
@@ -280,60 +329,44 @@ export default function DashboardPage() {
               </div>
 
               {/* Chat Stream Area */}
-              <div className="flex-1 p-5 overflow-y-auto space-y-5">
-                {/* User Message */}
-                <div className="flex justify-end">
-                  <div className="bg-blue-600 text-white rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[85%] shadow-md shadow-blue-950/20 text-sm">
-                    Schedule a meeting with Sarah tomorrow at 5 PM.
-                  </div>
-                </div>
-
-                {/* AI Message with Glassmorphism Timeline Widget */}
-                <div className="flex justify-start">
-                  <div className="bg-[#0c1329] border border-white/5 text-gray-200 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] shadow-md text-sm">
-                    <p className="mb-3 text-xs tracking-wide">
-                      I've scheduled the meeting with Sarah.
-                    </p>
-
-                    {/* Embedded Calendar Widget */}
-                    <div className="bg-white/3 border border-white/5 rounded-xl p-3 flex items-center gap-3">
-                      <div className="bg-blue-600/20 text-blue-400 border border-blue-500/30 p-2 rounded-lg">
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-white">
-                          Tomorrow, 5:00 PM
-                        </p>
-                        <p className="text-[11px] text-gray-400">
-                          Sync with Sarah
-                        </p>
-                      </div>
+              <div className="flex-1 p-5 overflow-y-auto space-y-4">
+                {messages.map((message, index) => (
+                  <div
+                    key={index}
+                    className={
+                      message.role === "user"
+                        ? "flex justify-end"
+                        : "flex justify-start"
+                    }
+                  >
+                    <div
+                      className={
+                        message.role === "user"
+                          ? "bg-indigo-600 text-white rounded-2xl rounded-tr-sm px-4 py-2 max-w-[80%]"
+                          : "bg-white border border-gray-200 rounded-2xl rounded-tl-sm px-4 py-2 max-w-[80%]"
+                      }
+                    >
+                      {message.text}
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
 
               {/* Input Prompt Panel */}
               <div className="p-4 bg-[#080d1a]/60 backdrop-blur-sm border-t border-white/5">
                 <div className="relative">
                   <textarea
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
                     placeholder="Ask me to send emails, schedule..."
                     className="w-full bg-[#030712] border border-white/10 text-white rounded-xl py-3 pl-4 pr-12 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent resize-none transition-all shadow-inner"
                     rows={2}
                   />
-                  <button className="absolute right-2 bottom-2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-md">
+                  <button
+                    onClick={handleSend}
+                    disabled={loading}
+                    className="absolute right-2 bottom-2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-md"
+                  >
                     <svg
                       className="w-4 h-4"
                       fill="none"
