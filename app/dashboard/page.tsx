@@ -27,9 +27,6 @@ export default function DashboardPage() {
 
       <div className="flex-1 flex overflow-hidden">
         <Sidebar
-          onCompose={() => setShowCompose(true)}
-          activePage={activePage}
-          setActivePage={setActivePage}
         />
 
         <main className="flex-1 grid grid-rows-[1fr_auto] lg:grid-rows-[1fr_240px] overflow-hidden">
