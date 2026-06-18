@@ -1,50 +1,47 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import ThemeToggle from "../components/ThemeToggle";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#f4f7fb] font-sans">
+    <div className="min-h-screen flex flex-col bg-[#f4f7fb] dark:bg-[#030712] font-sans transition-colors duration-300">
       
       {/* Top Navigation */}
       <header className="flex items-center justify-between px-6 py-5 sm:px-10">
         <div className="flex items-center gap-2 cursor-pointer">
-          <div className="flex items-center justify-center w-8 h-8 bg-blue-600 rounded-lg">
+          <div className="flex items-center justify-center w-8 h-8 bg-blue-600 rounded-lg shadow-md">
             <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
           </div>
-          <span className="text-xl font-bold text-blue-600 tracking-tight">Chronos</span>
+          <span className="text-xl font-bold text-blue-600 dark:text-white tracking-tight transition-colors duration-200">Chronos</span>
         </div>
 
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
-          <a href="#" className="hover:text-gray-900 transition-colors">Features</a>
-          <a href="#" className="hover:text-gray-900 transition-colors">Pricing</a>
-          <a href="#" className="text-blue-600 border-b-2 border-blue-600 pb-1">Login</a>
-        </nav>
-
-        <div className="text-sm font-medium text-gray-600 hover:text-gray-900 cursor-pointer transition-colors">
-          Support
+        <div className="flex items-center gap-6">
+          <nav className="hidden md:flex items-center text-sm font-medium text-gray-600 dark:text-gray-400">
+            <a href="#" className="pb-1 border-b-2 text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400">Login</a>
+          </nav>
+          <ThemeToggle />
         </div>
       </header>
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-110 bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-10">
+        <div className="w-full max-w-110 bg-white dark:bg-[#060b18] rounded-2xl shadow-xs dark:shadow-2xl dark:shadow-black/40 border border-gray-100 dark:border-white/5 p-8 sm:p-10 transition-all duration-300">
           
           {/* Header & Icon */}
           <div className="flex flex-col items-center mb-8">
-            <div className="flex items-center justify-center w-12 h-12 bg-[#2563eb] rounded-xl shadow-sm mb-6">
-              {/* Sparkle Icon */}
+            <div className="flex items-center justify-center w-12 h-12 bg-blue-600 rounded-xl shadow-md mb-6">
               <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
               </svg>
             </div>
             
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 transition-colors duration-200">
               Welcome back
             </h1>
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 dark:text-gray-400 text-sm transition-colors duration-200">
               AI-powered email & calendar management.
             </p>
           </div>
@@ -52,7 +49,7 @@ export default function LoginPage() {
           {/* Google Button */}
           <button
             onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-            className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 rounded-lg p-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-all duration-200"
+            className="w-full flex items-center justify-center gap-3 bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg p-2.5 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 dark:focus:ring-offset-[#060b18] transition-all duration-200"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -64,41 +61,40 @@ export default function LoginPage() {
           </button>
 
           {/* Divider */}
-          <div className="flex items-center gap-3 my-6 text-gray-400 text-xs font-medium">
-            <div className="flex-1 h-px bg-gray-200"></div>
+          <div className="flex items-center gap-3 my-6 text-gray-400 dark:text-gray-500 text-xs font-medium">
+            <div className="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
             <span>OR</span>
-            <div className="flex-1 h-px bg-gray-200"></div>
+            <div className="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
           </div>
 
           {/* Email / Password Form */}
           <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-            
             {/* Email Input */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 Email Address
               </label>
               <input
                 type="email"
                 placeholder="name@company.com"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
+                className="w-full border border-gray-300 dark:border-white/10 rounded-lg px-3 py-2.5 text-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-white/5 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
               />
             </div>
 
             {/* Password Input */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Password
                 </label>
-                <a href="#" className="text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+                <a href="#" className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
                   Forgot?
                 </a>
               </div>
               <input
                 type="password"
                 placeholder="••••••••"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
+                className="w-full border border-gray-300 dark:border-white/10 rounded-lg px-3 py-2.5 text-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-white/5 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
               />
             </div>
 
@@ -107,9 +103,9 @@ export default function LoginPage() {
               <input
                 id="remember_me"
                 type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600 cursor-pointer"
+                className="h-4 w-4 rounded border-gray-300 dark:border-white/10 text-blue-600 focus:ring-blue-600 dark:bg-white/5 cursor-pointer"
               />
-              <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-600 cursor-pointer">
+              <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-600 dark:text-gray-400 cursor-pointer">
                 Remember me for 30 days
               </label>
             </div>
@@ -117,16 +113,16 @@ export default function LoginPage() {
             {/* Sign In Button */}
             <button
               type="submit"
-              className="w-full bg-[#0b57d0] hover:bg-[#0842a0] text-white font-semibold rounded-lg p-2.5 text-sm transition-colors duration-200"
+              className="w-full bg-[#0b57d0] hover:bg-[#0842a0] dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-semibold rounded-lg p-2.5 text-sm transition-colors duration-200"
             >
               Sign in with Email
             </button>
           </form>
 
           {/* Footer Link */}
-          <p className="mt-8 text-center text-sm text-gray-600">
+          <p className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
             Don't have an account?{" "}
-            <a href="#" className="font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+            <a href="#" className="font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
               Sign up for free
             </a>
           </p>

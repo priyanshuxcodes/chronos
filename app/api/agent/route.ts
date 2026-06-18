@@ -207,7 +207,10 @@ ${JSON.stringify(emailData, null, 2)}
 `,
       });
 
-      return Response.json(summaryResponse.text);
+      return Response.json({
+        success: true,
+        message: summaryResponse.text,
+      });
     }
 
     return Response.json(action);
