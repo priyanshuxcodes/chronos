@@ -14,12 +14,15 @@ export default function DashboardPage() {
   const [activePage, setActivePage] = useState<"dashboard" | "ai">("dashboard");
 
   useEffect(() => {
-    fetch("/api/calendar")
-      .then((res) => res.json())
-      .then((data) => {
-        setEvents(data);
-      });
-  }, []);
+  fetch("/api/calendar")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Calendar API response:", data);
+      console.log("Is array?", Array.isArray(data));
+
+      setEvents(data);
+    });
+}, []);
 
   return (
     <div className="h-screen flex flex-col bg-slate-50 dark:bg-[#030712] text-slate-900 dark:text-gray-100 font-sans antialiased overflow-hidden transition-colors duration-200">
