@@ -2,7 +2,7 @@ import { corsair } from "@/lib/corsair";
 import { processOAuthCallback } from "corsair/oauth";
 
 export async function GET(req: Request) {
-    const { searchParams, origin } = new URL(req.url);
+    const { searchParams } = new URL(req.url);
 
     const code = searchParams.get("code");
     const state = searchParams.get("state");
@@ -14,17 +14,20 @@ export async function GET(req: Request) {
     }
 
     try {
+        const origin = new URL(req.url).origin;
+
         const result = await processOAuthCallback(corsair, {
             code,
             state,
             redirectUri: `${origin}/api/corsair/callback`,
         });
 
-        console.log("Corsair OAuth result:", result);
+        console.log("RESULT:");
+        console.log(result);
 
         return Response.redirect(`${origin}/dashboard`);
     } catch (err) {
-        console.error("Corsair OAuth failed:", err);
+        console.error(err);
 
         return new Response("OAuth failed", {
             status: 500,
