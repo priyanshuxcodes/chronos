@@ -1,12 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
-  const [showMenu, setShowMenu] = useState(false);
-
   const { data: session } = useSession();
 
   const userName = session?.user?.name || "User";
@@ -14,9 +11,19 @@ const Navbar = () => {
   const avatarInitial = userName.charAt(0).toUpperCase();
 
   const handleLogout = async () => {
-    await signOut({
-      callbackUrl: "/login",
-    });
+    console.log("LOGOUT BUTTON CLICKED");
+
+    try {
+      const result = await signOut({
+        redirect: false,
+      });
+
+      console.log("SIGNOUT RESULT:", result);
+
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("LOGOUT ERROR:", error);
+    }
   };
 
   return (
@@ -62,48 +69,20 @@ const Navbar = () => {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-2 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
             />
           </svg>
         </button>
 
-        {/* Profile */}
-        <div className="relative">
-
-          <button
-            onClick={() => setShowMenu((prev) => !prev)}
-            className="h-10 w-10 rounded-full bg-linear-to-tr from-blue-600 to-indigo-600 border border-gray-200 dark:border-white/10 shadow-lg shadow-blue-500/20 flex items-center justify-center text-white font-semibold cursor-pointer"
-          >
-            {avatarInitial}
-          </button>
-
-          {/* Dropdown */}
-          {showMenu && (
-            <div className="absolute right-0 mt-3 w-64 bg-white dark:bg-[#0b1220] border border-gray-200 dark:border-white/10 rounded-xl shadow-xl overflow-hidden">
-
-              {/* User information */}
-              <div className="px-4 py-3 border-b border-gray-200 dark:border-white/10">
-                <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
-                  {userName}
-                </p>
-
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                  {userEmail}
-                </p>
-              </div>
-
-              {/* Logout */}
-              <button
-                onClick={handleLogout}
-                className="w-full px-4 py-3 text-left text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
-              >
-                🚪 Log out
-              </button>
-
-            </div>
-          )}
-
-        </div>
+        {/* Profile / Logout */}
+        <button
+          type="button"
+          onClick={handleLogout}
+          title={`Logout ${userEmail}`}
+          className="h-10 w-10 rounded-full bg-linear-to-tr from-blue-600 to-indigo-600 border border-gray-200 dark:border-white/10 shadow-lg shadow-blue-500/20 flex items-center justify-center text-white font-semibold cursor-pointer hover:scale-105 transition-transform"
+        >
+          {avatarInitial}
+        </button>
 
       </div>
     </header>
